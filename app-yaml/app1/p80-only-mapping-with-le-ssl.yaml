@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-apps1-ingresroute80
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`app1.deepen.in`)
+      kind: Rule
+      services:
+        - name: nginx-apps1-service
+          port: 80

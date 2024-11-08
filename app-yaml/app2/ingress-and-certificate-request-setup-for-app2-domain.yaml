@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    spec.ingressClassName: traefik
+  labels:
+    app: app2.deepen.in-ssl
+  name: app2.deepen.in-ssl
+  namespace: default
+spec:
+  rules:
+  - host: app2.deepen.in # Change by your domain
+    http:
+      paths:
+      - backend:
+          service:
+            name: nginx-apps2-service
+            port: 
+              number: 80
+        path: /
+        pathType: Prefix  
+  tls:
+  - hosts:
+    - app2.deepen.in # Change by your domain
+    secretName: app2.deepen.in-in-tls-key

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-apps1-pvc
+spec:
+  volumeName: nginx-apps1-pv  # Explicitly bind to 'my-pv'
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: "local-path" # Empty string must be explicitly set otherwise default StorageClass will be set
+

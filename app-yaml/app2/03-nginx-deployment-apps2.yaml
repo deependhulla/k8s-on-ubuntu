@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-apps2-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-apps2
+  template:
+    metadata:
+      labels:
+        app: nginx-apps2
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: nginx-apps2-volume
+      volumes:
+        - name: nginx-apps2-volume
+          persistentVolumeClaim:
+            claimName: nginx-apps2-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-apps2-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: nginx-apps2
+
